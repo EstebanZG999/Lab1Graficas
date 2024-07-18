@@ -1,4 +1,3 @@
-use nalgebra_glm as glm;
 use std::fs::File;
 use std::io::{BufWriter, Write};
 
@@ -14,11 +13,19 @@ fn main() {
         (230, 360), (250, 380), (220, 385), (205, 410), (193, 383)
     ];
 
+    // Definir los puntos del polígono 2
+    let points2 = [
+        (321, 335), (288, 286), (339, 251), (374, 302)
+    ];
+
     // Dibujar el polígono 1
-    draw_polygon(&mut imgbuf, &points1, [0, 255, 255], [255, 255, 255]); // Amarillo con borde blanco
+    draw_polygon(&mut imgbuf, &points1, [0, 255, 255], [255, 255, 255]);
+
+    // Dibujar el polígono 2
+    draw_polygon(&mut imgbuf, &points2, [255, 0, 0], [255, 255, 255]); 
 
     // Guardar la imagen como BMP
-    save_as_bmp("poligon1out.bmp", &imgbuf).unwrap();
+    save_as_bmp("poligon1,2.bmp", &imgbuf).unwrap();
 }
 
 fn draw_polygon(imgbuf: &mut Vec<Vec<[u8; 3]>>, points: &[(i32, i32)], fill_color: [u8; 3], border_color: [u8; 3]) {
