@@ -18,14 +18,22 @@ fn main() {
         (321, 335), (288, 286), (339, 251), (374, 302)
     ];
 
+    // Definir los puntos del polígono 3
+    let points3 = [
+        (377, 249), (411, 197), (436, 249)
+    ];
+
     // Dibujar el polígono 1
-    draw_polygon(&mut imgbuf, &points1, [0, 255, 255], [255, 255, 255]);
+    draw_polygon(&mut imgbuf, &points1, [0, 255, 255], [255, 255, 255]); 
 
     // Dibujar el polígono 2
     draw_polygon(&mut imgbuf, &points2, [255, 0, 0], [255, 255, 255]); 
 
+    // Dibujar el polígono 3
+    draw_polygon(&mut imgbuf, &points3, [0, 0, 255], [255, 255, 255]); 
+
     // Guardar la imagen como BMP
-    save_as_bmp("poligon1,2.bmp", &imgbuf).unwrap();
+    save_as_bmp("poligon1,2,3.bmp", &imgbuf).unwrap();
 }
 
 fn draw_polygon(imgbuf: &mut Vec<Vec<[u8; 3]>>, points: &[(i32, i32)], fill_color: [u8; 3], border_color: [u8; 3]) {
