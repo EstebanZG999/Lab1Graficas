@@ -23,6 +23,18 @@ fn main() {
         (377, 249), (411, 197), (436, 249)
     ];
 
+    // Definir los puntos del polígono 4
+    let points4 = [
+        (413, 177), (448, 159), (502, 88), (553, 53), (535, 36), (676, 37), (660, 52),
+        (750, 145), (761, 179), (672, 192), (659, 214), (615, 214), (632, 230), (580, 230),
+        (597, 215), (552, 214), (517, 144), (466, 180)
+    ];
+
+    // Definir los puntos del polígono 5 (agujero)
+    let points5 = [
+        (682, 175), (708, 120), (735, 148), (739, 170)
+    ];
+
     // Dibujar el polígono 1
     draw_polygon(&mut imgbuf, &points1, [0, 255, 255], [255, 255, 255]); 
 
@@ -32,8 +44,11 @@ fn main() {
     // Dibujar el polígono 3
     draw_polygon(&mut imgbuf, &points3, [0, 0, 255], [255, 255, 255]); 
 
+    // Dibujar el polígono 4 con el polígono 5 como agujero
+    draw_polygon_with_hole(&mut imgbuf, &points4, &points5, [0, 255, 0], [255, 255, 255]); 
+
     // Guardar la imagen como BMP
-    save_as_bmp("poligon1,2,3.bmp", &imgbuf).unwrap();
+    save_as_bmp("poligon1-5.bmp", &imgbuf).unwrap();
 }
 
 fn draw_polygon(imgbuf: &mut Vec<Vec<[u8; 3]>>, points: &[(i32, i32)], fill_color: [u8; 3], border_color: [u8; 3]) {
@@ -84,6 +99,14 @@ fn draw_polygon(imgbuf: &mut Vec<Vec<[u8; 3]>>, points: &[(i32, i32)], fill_colo
         let j = (i + 1) % points.len();
         draw_line(imgbuf, points[i], points[j], border_color);
     }
+}
+
+fn draw_polygon_with_hole(imgbuf: &mut Vec<Vec<[u8; 3]>>, outer_points: &[(i32, i32)], inner_points: &[(i32, i32)], fill_color: [u8; 3], border_color: [u8; 3]) {
+    // Dibujar el polígono exterior
+    draw_polygon(imgbuf, outer_points, fill_color, border_color);
+
+    // Dibujar el polígono interior (agujero) con el color de fondo
+    draw_polygon(imgbuf, inner_points, [0, 0, 0], border_color);
 }
 
 fn draw_line(imgbuf: &mut Vec<Vec<[u8; 3]>>, start: (i32, i32), end: (i32, i32), color: [u8; 3]) {
